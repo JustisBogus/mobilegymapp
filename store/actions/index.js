@@ -1,0 +1,1 @@
+export { addUser, addWorkouts } from './exercises';
