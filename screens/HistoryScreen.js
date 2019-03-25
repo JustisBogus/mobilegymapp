@@ -1,8 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet, FlatList, View } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { ActivityIndicator, Text, StyleSheet, FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
-import fire from '../firebase/fire';
 import ExercisesHistory from '../components/Exercises/ExercisesHistory';
 
 class HistoryScreen extends React.Component {
@@ -23,46 +21,34 @@ class HistoryScreen extends React.Component {
   static navigationOptions = {
     title: 'Atliktos',
   };
-/*
-componentWillMount() {
 
-let exerciseRef = fire.database().ref("workouts").orderByKey().limitToLast(100);
-exerciseRef.on('child_added', snapshot => {
-let exercise = {
-              name:snapshot.val().name,
-              email:snapshot.val().email,
-              trainer:snapshot.val().trainer,
-              gender:snapshot.val().gender,
-              exercises:snapshot.val().exercises,
-              dateCreated:snapshot.val().dateCreated,
-              dateOfWorkout:snapshot.val().dateOfWorkout,
-              id: snapshot.key };
-              if(exercise.email===this.props.loggedInUser) {
-              this.setState({ workouts: [exercise].concat(this.state.workouts) });
-              }
-});
-  }
-*/
   render() {
+
+    let content = <FlatList 
+    key={this.props.workouts.id}
+     data={this.props.workouts}
+     renderItem={({item}) => (  
+       <ExercisesHistory 
+        name={item.name}
+        gender={item.gender}
+        dateCreated={item.dateCreated}
+        dateOfWorkout={item.dateOfWorkout}
+        exercises={item.exercises}
+        id={item.id}
+        workoutCompleted={item.workoutCompleted}
+        />
+)}
+keyExtractor={(item) => item.id }
+/>;
+
+    if(this.props.isLoading) {
+      content = <ActivityIndicator size="large" color="#50bfe6" />;
+    } 
+
 
     return (
       <View style={styles.container}>
-                <FlatList 
-                   key={this.props.workouts.id}
-                    data={this.props.workouts}
-                    renderItem={({item}) => (  
-                      <ExercisesHistory 
-                       name={item.name}
-                       gender={item.gender}
-                       dateCreated={item.dateCreated}
-                       dateOfWorkout={item.dateOfWorkout}
-                       exercises={item.exercises}
-                       id={item.id}
-                       workoutCompleted={item.workoutCompleted}
-                       />
-        )}
-        keyExtractor={(item) => item.id }
-        />
+                {content}
         </View>
     );
   }
@@ -80,6 +66,7 @@ const mapStateToProps = state => {
   return {
       loggedInUser: state.exercises.loggedInUser,
       workouts: state.exercises.workouts,
+      isLoading: state.ui.isLoading
   };
 };
 

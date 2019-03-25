@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import { ScrollView, View, StyleSheet, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { List, ListItem, withTheme } from 'react-native-elements';
-import { benchpressmale } from '../../assets/images/benchpressmale.jpg';
-import { bicepcurlmale } from '../../assets/images/bicepcurlmale.jpg';
 import { Ionicons } from '@expo/vector-icons';
 import fire from '../../firebase/fire';
 
@@ -15,6 +12,7 @@ constructor(props) {
         exercises:this.props.exercises,
         workoutCompleted:this.props.workoutCompleted,
         completedCount:this.props.completedCount,
+        workoutsCompleted:this.props.workoutsCompleted
     }
 }
 
@@ -34,15 +32,21 @@ completeHandler = (item) => {
        
        this.setState((prevState) => ({
         completedCount: prevState.completedCount - 1
-    })); 
+    }));
    
         let exercisesCompleted = this.state.exercises
-    if (exercisesCompleted.length!==this.state.completedCount+1) {
+    if (exercisesCompleted.length!==this.state.completedCount + 1) {
         this.setState({workoutCompleted:false});
+        this.setState((prevState) => ({
+            workoutsCompleted: prevState.workoutsCompleted -1 }));
         let workoutCompleted = {
             "workoutCompleted": false,
         }
+        let workoutsCompleted = {
+            "workoutsCompleted": this.state.workoutsCompleted - 1
+        }
         fire.database().ref('workouts').child(this.props.id).update(workoutCompleted);
+        fire.database().ref('users').child(this.props.userId).update(workoutsCompleted);
     }
 
         let completedCountUpdate = {
@@ -65,19 +69,24 @@ completeHandler = (item) => {
         completedCount: prevState.completedCount + 1
     }));
 
-    if (exercisesCompleted.length===this.state.completedCount+1) {
+    if (exercisesCompleted.length===this.state.completedCount + 1) {
         this.setState({workoutCompleted:true});
+        this.setState((prevState) => ({
+            workoutsCompleted: prevState.workoutsCompleted + 1 }));
         let workoutCompleted = {
             "workoutCompleted": true,
         }
+        let workoutsCompleted = {
+            "workoutsCompleted": this.state.workoutsCompleted + 1
+        }
         fire.database().ref('workouts').child(this.props.id).update(workoutCompleted);
+        fire.database().ref('users').child(this.props.userId).update(workoutsCompleted);
     }
 
     let completedCountUpdate = {
         "completedCount": this.state.completedCount + 1,
     }
-        fire.database().ref('workouts').child(this.props.id).update(completedCountUpdate);
-       
+        fire.database().ref('workouts').child(this.props.id).update(completedCountUpdate);    
     }
 }
 

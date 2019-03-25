@@ -31,7 +31,7 @@ const ExerciseStack = createStackNavigator({
 });
 
 ExerciseStack.navigationOptions = {
-  tabBarLabel: 'Treniruote',
+  tabBarLabel: 'Treniruotė',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -59,7 +59,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Irankiai',
+  tabBarLabel: 'Įrankiai',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}

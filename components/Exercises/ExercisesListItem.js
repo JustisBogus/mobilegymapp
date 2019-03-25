@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import { ScrollView, View, StyleSheet, Text, Image, FlatList, TouchableOpacity } from 'react-native';
+import {  View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import fire from '../../firebase/fire';
-
 
 class ExercisesListItem extends Component {
 
@@ -71,7 +69,9 @@ render(props){
         <TouchableOpacity onPress={this.toggleExpandExercise}>
         <View style={styles.exerciseTextWrap}>
         <View style={styles.textWrapTitle}>
-        <Text style={styles.text1}>{this.props.exerciseName}</Text>
+        <Text style={styles.text1}>
+        <Ionicons name="md-checkmark" size={14} color={this.props.completed ? "#aaf0d1" : "#fff"} />
+        {" "} {this.props.exerciseName}</Text>
         </View>
         <View style={styles.textWrap1}>
         <Text style={styles.text2}>{this.props.mass} kg </Text>

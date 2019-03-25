@@ -1,4 +1,4 @@
-import { ADD_USER, ADD_WORKOUTS } from '../actions/actionTypes';
+import { ADD_USER, UPDATE_USER, ADD_WORKOUTS } from '../actions/actionTypes';
 
 const initialState = {
         name:'',
@@ -16,6 +16,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loggedInUser: action.email,
             };
+            case UPDATE_USER:
+            return {
+                ...state,
+                user: action.user,
+            }
         case ADD_WORKOUTS: 
             return {
                 ...state,

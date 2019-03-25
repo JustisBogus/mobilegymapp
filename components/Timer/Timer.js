@@ -54,10 +54,10 @@ export default class Timer extends React.Component {
         startStopButton = <Button title="Sustabdyti" onPress={this.stopTimerHandler.bind(this)}/>
     } 
     if (this.state.timerStopped && this.state.hours === 0 && this.state.minutes === 0 && this.state.seconds === 0) {
-       startStopButton =  <Button title="Pradeti" onPress={this.startTimerHandler.bind(this)} />
+       startStopButton =  <Button title="Pradėti" onPress={this.startTimerHandler.bind(this)} />
     }
     if (this.state.timerStopped && (this.state.hours !== 0 || this.state.minutes !== 0 || this.state.seconds !== 0)) {
-        startStopButton =  <Button title="Testi" onPress={this.startTimerHandler.bind(this)} />
+        startStopButton =  <Button title="Tęsti" onPress={this.startTimerHandler.bind(this)} />
     }
 
     return (
@@ -70,8 +70,12 @@ export default class Timer extends React.Component {
              {this.state.seconds < 10 ? "0" : null}
              {this.state.seconds}</Text>
         <View style={styles.buttonContainer}>
+        <View style={styles.startStopButtonContainer}>
         {startStopButton}
+        </View>
+        <View style={styles.resetButtonContainer}>
         <Button title="Istrinti" onPress={this.resetTimerHandler.bind(this)}/>
+        </View>
         </View>
       </View>
       );
@@ -91,5 +95,13 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 1, 
         flexDirection: 'row',
+    },
+    startStopButtonContainer: {
+        marginRight: 10,
+        width:100
+    },
+    resetButtonContainer: {
+        marginLeft: 10,
+        width:100
     },
   });

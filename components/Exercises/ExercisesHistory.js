@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { ScrollView, View, StyleSheet, Text, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import fire from '../../firebase/fire';
+
 import ExercisesListItem from '../Exercises/ExercisesListItem';
 
 class ExercisesHistory extends Component {
