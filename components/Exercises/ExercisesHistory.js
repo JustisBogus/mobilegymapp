@@ -30,6 +30,7 @@ render(props){
             return <ExercisesListItem
                 key={exercise.orderNumber}
                 exerciseName={exercise.exerciseName}
+                muscleGroup={exercise.muscleGroup}
                 pictureMale={exercise.pictureMale}
                 reps={exercise.reps}
                 sets={exercise.sets}
@@ -38,7 +39,7 @@ render(props){
                 duration={exercise.duration}
                 notes={exercise.notes}
                 completed={exercise.completed}
-               />   
+               />
       });
     }
 
@@ -47,9 +48,9 @@ render(props){
         <TouchableOpacity onPress={this.toggleExpandWorkout}>
         <Text style={styles.workoutTitle}>
         {this.props.exercises.length } Pratimai 
-        {"   "}
+        {"  "}
         {this.props.dateOfWorkout} 
-        {"   "}
+        {"  "}
         <Ionicons name="md-trophy" size={24} color={this.props.workoutCompleted ? "#fcd667" : "#fafafa"} />
         </Text>
         </TouchableOpacity>
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     },
     workoutTitle: {
     textAlign: 'center', 
-    fontWeight: 'bold',
+    fontWeight: '100',
     fontSize: 18,
     marginBottom: 15,
     paddingTop:7,

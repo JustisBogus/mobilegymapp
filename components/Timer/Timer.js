@@ -91,10 +91,11 @@ const styles = StyleSheet.create({
     },
     timerText: {
         fontSize: 42,
+        fontWeight:"100"
     },
     buttonContainer: {
         flex: 1, 
-        flexDirection: 'row',
+        flexDirection: "row",
     },
     startStopButtonContainer: {
         marginRight: 10,

@@ -30,6 +30,8 @@ render(props){
         <Text style={styles.exerciseTitle}>
             {this.props.orderNumber} {" "}
             {this.props.exerciseName}</Text>
+        <Text style={styles.exerciseMuscleGroup}>
+        {this.props.muscleGroup}</Text>
         </View>
         <View style={styles.exerciseContainer}>
         <View>
@@ -115,6 +117,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 5,
     marginBottom: 5, 
+    },
+    exerciseMuscleGroup: {
+    textAlign: 'center',
+    marginBottom: 5,
     },
     exerciseTitleContainer: {
         marginTop:10,

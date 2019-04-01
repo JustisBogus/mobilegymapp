@@ -10,7 +10,7 @@ export default class SettingsScreen extends React.Component {
     }
   }
   static navigationOptions = {
-    title: 'Irankiai',
+    title: 'Įrankiai',
   };
 
   render() {

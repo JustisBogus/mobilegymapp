@@ -6,12 +6,15 @@ import {
   StyleSheet,
   Text,
   View,
+  FlatList
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { addWorkouts, updateUser, uiStopLoading } from '../store/actions/index';
 import fire from '../firebase/fire';
 import altogymlogo from './../assets/images/gymlogo.png';
+import News from '../components/News/News';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 class HomeScreen extends React.Component {
   constructor (props) {
@@ -19,6 +22,7 @@ class HomeScreen extends React.Component {
     
     this.state = {
       user:"",
+      news:[]
     }
   }
   static navigationOptions = {
@@ -62,6 +66,16 @@ userRef.on('child_added', snapshot => {
         this.setState({user:user});
       }
   });
+
+  let newsRef = fire.database().ref("news").orderByKey().limitToLast(10);
+  newsRef.on('child_added', snapshot => {
+    let news = {
+      newsMessage: snapshot.val().newsMessage,
+      dateCreated: snapshot.val().dateCreated,
+      author: snapshot.val().author,
+      id: snapshot.key };
+      this.setState({news:[news].concat(this.state.news)});
+  })
   }
 
   componentDidMount = () => {
@@ -88,8 +102,25 @@ fire.database().ref('users').on('child_changed', snapshot => {
 
   if (this.state.user) {
     content = <View style={styles.userContainer}>
-      <View style={styles.iconContainer}> 
-          <Ionicons name="md-trophy" size={64} color={"#fcd667"}/>
+          <View style={styles.newsContainer}>
+          <View style={styles.newsTitle}>
+          <Text style={styles.newsTitleText} >Naujienos</Text>
+          </View>
+          <FlatList 
+                 style={styles.newsFlatList}
+                 data={this.state.news}
+                 renderItem={({item}) => (  
+                 <News
+                 newsMessage={item.newsMessage}
+                 dateCreated={item.dateCreated}
+                 author={item.author}
+                 />
+        )}
+        keyExtractor={(item) => item.id }
+        />
+        </View>
+        <View style={styles.iconContainer}> 
+          <Ionicons name="md-trophy" size={36} color={"#fcd667"}/>
           <View style={styles.workoutsCompletedTextContainer}>
           <Text style={styles.workoutsCompletedText}>
           x {this.state.user.workoutsCompleted} </Text>
@@ -139,15 +170,27 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   userNameText: {
-    color: '#50bfe6'
+    color: '#50bfe6',
+    fontWeight: "100"
   },
   contentContainer: {
     paddingTop: 30,
   },
-  welcomeContainer: {
+  newsContainer: {
+    flex:1,
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    width:270,
+    marginTop:20
+  },
+  newsTitle: {
+    marginBottom: 20
+  },
+  newsTitleText: {
+    fontSize: 18,
+    fontWeight:'100'
+  },
+  newsFlatList: {
+    width:'100%',
   },
   tabBarInfoContainer: {
     position: 'absolute',

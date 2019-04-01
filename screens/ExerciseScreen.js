@@ -23,7 +23,7 @@ class ExerciseScreen extends React.Component {
     }
   }
   static navigationOptions = {
-    title: 'Treniruote',
+    title: 'Treniruotė',
   };
   
   render() {

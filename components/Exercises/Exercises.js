@@ -100,6 +100,8 @@ render(props){
                 <View style={styles.exerciseTitleContainer}>
                 <Text style={styles.exerciseTitle}>
                 {item.exerciseName}</Text>
+                <Text style={styles.exerciseMuscleGroup}>
+                {item.muscleGroup}</Text>
                 </View>
                 <View style={styles.exerciseContainer}>
                 <View>
@@ -117,10 +119,10 @@ render(props){
                 <Text style={styles.exerciseText}>Setai: {item.sets}</Text>
                 </View>
                 <View style={styles.textBorder4}>
-                <Text style={styles.exerciseText}>Ilsetis: {item.rest} m</Text>
+                <Text style={styles.exerciseText}>Ilsėtis: {item.rest} min</Text>
                 </View>
                 <View style={styles.textBorder5}>
-                <Text style={styles.exerciseText}>Trukme: {item.duration} m</Text>
+                <Text style={styles.exerciseText}>Trukmė: {item.duration} min</Text>
                 </View>
                 </View>
                 </View>
@@ -139,7 +141,7 @@ render(props){
 
     return (
         <ScrollView style={styles.content}>
-        <Text style={styles.workoutTitle}> Naujausia Treniruote {this.props.dateOfWorkout}</Text>
+        <Text style={styles.workoutTitle}> Naujausia Treniruotė {this.props.dateOfWorkout}</Text>
         {exerciseList}
         <View style={styles.trophyIconContainer}>
         <Ionicons name="md-trophy" size={64} color={this.state.workoutCompleted ? "#fcd667" : "#eee"} />
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
 
     workoutTitle: {
     textAlign: 'center', 
-    fontWeight: 'bold',
+    fontWeight: '100',
     fontSize: 18,
     marginTop: 0,
     paddingTop:5,
@@ -169,6 +171,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 5,
     marginBottom: 5, 
+    },
+    exerciseMuscleGroup:{
+    textAlign: 'center',
+    marginBottom: 5,
     },
     exerciseTitleContainer:{
         marginTop:10,
